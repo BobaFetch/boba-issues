@@ -6,8 +6,9 @@ const buildAuthHeader = (email: string, apiKey: string): string =>
 
 export const request = async <T>(path: string, init: RequestInit = {}): Promise<T> => {
   const { email, apiKey } = getConfig();
+  const baseUrl = await getUrl();
 
-  const res = await fetch(`${getUrl()}${path}`, {
+  const res = await fetch(`${baseUrl}${path}`, {
     ...init,
     headers: {
       Authorization: buildAuthHeader(email, apiKey),
